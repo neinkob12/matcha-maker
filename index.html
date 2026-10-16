@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no" />
+  <meta name="theme-color" content="#1a1023" />
+  <title>Matcha Maker</title>
+  <meta name="description" content="Pour, stack and decorate your dream Y2K matcha, get a taste score and share it." />
+  <meta property="og:title" content="Matcha Maker ✨" />
+  <meta property="og:description" content="Build your dream Y2K matcha. Pour, decorate, spin, share." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍵</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Rubik+Bubbles&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="device">
+    <div id="screen">
+      <header>
+        <button class="icon" id="btnBoard" aria-label="Leaderboard">🏆</button>
+        <div class="title">MATCHA<span>MAKER</span></div>
+        <div class="status"><span id="clock">12:00</span><button class="icon" id="btnSound" aria-label="Sound">🔊</button></div>
+      </header>
+
+      <div id="meter">
+        <div class="row">
+          <span class="lbl">TASTE</span>
+          <div class="bar"><div id="fill"></div></div>
+          <span id="score">-.-</span>
+        </div>
+        <div id="note">EMPTY CUP · pick something below</div>
+      </div>
+
+      <div id="stage"><canvas id="cv"></canvas></div>
+      <div id="hint">SWIPE THE GLASS TO SPIN IT</div>
+
+      <nav id="tabs"></nav>
+      <div id="items"></div>
+
+      <div id="actions">
+        <button id="aUndo">↶<small>UNDO</small></button>
+        <button id="aSpin" class="on">✋<small>SPIN</small></button>
+        <button id="aStir">🥄<small>STIR</small></button>
+        <button id="aNew">🗑<small>NEW</small></button>
+        <button id="aServe" class="serve">★ SERVE</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="result" class="modal" hidden>
+    <div class="panel">
+      <div class="ptitle">ORDER UP!</div>
+      <canvas id="mini"></canvas>
+      <div id="rName"></div>
+      <div class="rscore"><div class="bar"><div id="rFill"></div></div><span id="rScore"></span></div>
+      <div id="rVerdict"></div>
+      <ul id="rNotes"></ul>
+      <div class="btns">
+        <button id="rCard">📸 SAVE CARD</button>
+        <button id="rLink">🔗 REMIX LINK</button>
+      </div>
+      <div class="post">
+        <input id="rNick" maxlength="16" placeholder="your name" autocomplete="off" />
+        <button id="rPost">🏆 POST</button>
+      </div>
+      <button id="rBack" class="ghost">← KEEP EDITING</button>
+    </div>
+  </div>
+
+  <div id="board" class="modal" hidden>
+    <div class="panel">
+      <div class="ptitle">BEST MATCHA TODAY</div>
+      <div id="bSub"></div>
+      <ol id="bList"></ol>
+      <button id="bClose" class="ghost">← BACK</button>
+    </div>
+  </div>
+
+  <div id="printDlg" class="modal" hidden>
+    <div class="panel">
+      <div class="ptitle">PRINT ON GLASS</div>
+      <input id="pText" maxlength="14" placeholder="your name" autocomplete="off" />
+      <div id="pStyles"></div>
+      <div class="btns">
+        <button id="pOk">✏️ PRINT</button>
+        <button id="pDel" class="ghost">REMOVE</button>
+      </div>
+      <button id="pClose" class="ghost">← BACK</button>
+    </div>
+  </div>
+
+  <div id="toast" hidden></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

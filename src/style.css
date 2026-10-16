@@ -1,0 +1,290 @@
+:root {
+  --screen: #c4f0c2;
+  --ink: #1b3a1b;
+  --pink: #ff4fa3;
+  --pink2: #ff8fc0;
+  --cream: #e8fff0;
+  --bezel: #5a6b7a;
+  --bg: #1a1023;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'VT323', monospace;
+  overscroll-behavior: none;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 20% 20%, #ff4fa333, transparent 40%),
+    radial-gradient(circle at 80% 80%, #9bbc0f33, transparent 40%),
+    var(--bg);
+}
+
+button { font-family: 'Press Start 2P', monospace; color: var(--ink); cursor: pointer; }
+
+#device {
+  width: 420px;
+  height: min(880px, 100dvh - 24px);
+  padding: 16px;
+  border-radius: 34px;
+  background: linear-gradient(145deg, #6c7f90, var(--bezel) 40%, #46535f);
+  box-shadow: 0 0 0 4px #2d3640, 0 20px 60px #000a, 0 0 60px #9bbc0f44;
+}
+
+#screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--screen);
+  border: 6px solid #2d3640;
+  border-radius: 8px;
+  overflow: hidden;
+  background-image: linear-gradient(#0000000a 1px, transparent 1px);
+  background-size: 100% 3px;
+}
+
+@media (max-width: 500px) {
+  body { display: block; }
+  #device { width: 100%; height: 100dvh; padding: 0; border-radius: 0; box-shadow: none; background: var(--screen); }
+  #screen { border: 0; border-radius: 0; padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px 2px;
+  flex: none;
+}
+header .title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 13px;
+  color: var(--pink);
+  text-shadow: 2px 2px 0 var(--ink);
+  text-align: center;
+  line-height: 1.25;
+}
+header .title span { display: block; font-size: 9px; color: var(--ink); text-shadow: none; letter-spacing: 3px; }
+header .status { display: flex; align-items: center; gap: 4px; font-size: 16px; }
+.icon {
+  font-size: 16px;
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  font-family: inherit;
+}
+
+#meter { padding: 2px 10px 4px; flex: none; }
+#meter .row { display: flex; align-items: center; gap: 8px; }
+.lbl { font-family: 'Press Start 2P', monospace; font-size: 8px; }
+.bar { flex: 1; height: 14px; border: 3px solid var(--ink); background: var(--cream); position: relative; overflow: hidden; }
+.bar > div {
+  height: 100%;
+  width: 0%;
+  background: repeating-linear-gradient(90deg, var(--pink) 0 8px, var(--cream) 8px 10px);
+  transition: width 0.25s steps(8);
+}
+.bar > div.bad { background: repeating-linear-gradient(90deg, #b8462e 0 8px, var(--cream) 8px 10px); }
+#score { font-family: 'Press Start 2P', monospace; font-size: 11px; min-width: 40px; text-align: right; }
+#note { font-size: 17px; line-height: 1; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+#stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 8px;
+  border: 4px solid var(--ink);
+  background: var(--cream);
+  position: relative;
+}
+#cv { display: block; touch-action: none; image-rendering: auto; }
+
+#hint {
+  flex: none;
+  text-align: center;
+  font-size: 17px;
+  padding: 3px 6px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#tabs {
+  flex: none;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 4px 8px;
+  scrollbar-width: none;
+}
+#tabs::-webkit-scrollbar, #items::-webkit-scrollbar { display: none; }
+#tabs button {
+  flex: none;
+  font-size: 8px;
+  padding: 7px 7px;
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+#tabs button.on { background: var(--pink2); transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--ink); }
+
+#items {
+  flex: none;
+  height: 128px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(2, 58px);
+  grid-auto-columns: 66px;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 2px 8px 6px;
+  scrollbar-width: none;
+}
+.chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  padding: 2px;
+  font-size: 6.5px;
+  line-height: 1.2;
+  text-align: center;
+  overflow: hidden;
+}
+.chip .e { font-size: 22px; line-height: 1; font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif; }
+.chip .e.txt { font-family: 'Press Start 2P', monospace; font-size: 7px; color: var(--pink); }
+.chip.on { background: var(--pink2); transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+.chip.held { background: #ffe14d; }
+
+#actions {
+  flex: none;
+  display: flex;
+  gap: 5px;
+  padding: 4px 8px 8px;
+}
+#actions button {
+  flex: 1;
+  font-size: 15px;
+  padding: 4px 0;
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+#actions small { font-size: 6px; }
+#actions button.on { background: #ffe14d; }
+#actions .serve { flex: 1.8; background: var(--pink); color: #fff; font-size: 10px; justify-content: center; text-shadow: 2px 2px 0 var(--ink); }
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: #1a1023cc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  padding: 12px;
+}
+.modal[hidden] { display: none; }
+.panel {
+  width: min(380px, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  background: var(--screen);
+  border: 5px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--pink);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+  background-image: linear-gradient(#0000000a 1px, transparent 1px);
+  background-size: 100% 3px;
+}
+.ptitle { font-family: 'Press Start 2P', monospace; font-size: 14px; color: var(--pink); text-shadow: 2px 2px 0 var(--ink); }
+#mini { align-self: center; width: 180px; height: 240px; border: 4px solid var(--ink); touch-action: none; }
+#rName { font-family: 'Press Start 2P', monospace; font-size: 12px; line-height: 1.5; }
+.rscore { display: flex; align-items: center; gap: 8px; }
+#rScore { font-family: 'Press Start 2P', monospace; font-size: 12px; }
+#rVerdict { font-family: 'Press Start 2P', monospace; font-size: 18px; color: var(--pink); text-shadow: 2px 2px 0 var(--ink); }
+#rNotes { list-style: none; padding: 0; margin: 0; font-size: 19px; text-align: left; }
+#rNotes li { padding: 1px 0; }
+.btns { display: flex; gap: 6px; }
+.btns button, .post button, .ghost {
+  flex: 1;
+  font-size: 9px;
+  padding: 10px 4px;
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.post { display: flex; gap: 6px; }
+.post button { flex: none; background: var(--pink); color: #fff; text-shadow: 1px 1px 0 var(--ink); }
+input {
+  flex: 1;
+  min-width: 0;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  padding: 10px 8px;
+  border: 3px solid var(--ink);
+  background: var(--cream);
+  color: var(--ink);
+}
+.ghost { background: transparent !important; box-shadow: none !important; border-style: dashed !important; }
+#bSub { font-size: 17px; }
+#bList { list-style: none; padding: 0; margin: 0; text-align: left; display: flex; flex-direction: column; gap: 6px; }
+#bList li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  padding: 6px;
+  cursor: pointer;
+}
+#bList .rk { font-family: 'Press Start 2P', monospace; font-size: 11px; width: 30px; text-align: center; }
+#bList .nm { flex: 1; font-size: 18px; line-height: 1; }
+#bList .nm small { display: block; font-size: 15px; opacity: 0.7; }
+#bList .sc { font-family: 'Press Start 2P', monospace; font-size: 11px; color: var(--pink); }
+#pStyles { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+#pStyles .chip { width: 64px; height: 54px; }
+
+#toast {
+  position: fixed;
+  left: 50%;
+  top: 18px;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: var(--screen);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  padding: 10px 12px;
+  border: 3px solid var(--pink);
+  z-index: 20;
+  max-width: 90vw;
+  text-align: center;
+  line-height: 1.5;
+}
