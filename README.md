@@ -22,4 +22,4 @@ npm run dev
 
 Import the repo in Vercel. It is detected as Vite; no config needed.
 
-For the online leaderboard, create a Supabase project, run `supabase/schema.sql`, then set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the Vercel project. Without them the board works per device.
+The online leaderboard already points at the `matcha-maker` Supabase project (public anon key, protected by row-level security, see `supabase/schema.sql`). To use a different project, set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`.

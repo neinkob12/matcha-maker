@@ -2,8 +2,10 @@ import { decodeDrink } from './share';
 import { taste } from './taste';
 import { Drink } from './state';
 
-const SB_URL = import.meta.env.VITE_SUPABASE_URL as string | undefined;
-const SB_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
+// Public client credentials; row-level security only allows reading and posting to today's board.
+const SB_URL = (import.meta.env.VITE_SUPABASE_URL as string | undefined) ?? 'https://rbxflwfkfqliqfjyclpg.supabase.co';
+const SB_KEY = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined) ??
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJieGZsd2ZrZnFsaXFmanljbHBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxNjUzNTIsImV4cCI6MjEwNzc0MTM1Mn0.xyJ-4ZX3QCISVBcT3UeDh02omFDlFiLUHudyv3qmLAA';
 export const online = !!(SB_URL && SB_KEY);
 
 export interface Entry { nickname: string; score: number; recipe: string; created_at: string }
